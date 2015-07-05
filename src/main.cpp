@@ -20,10 +20,15 @@ static void Verify(void(*f)(T*, size_t), const char* fname) {
     T* data = new T[kCount];
     f(data, kCount);
 
-    // Compute mean
+    // Compute mean, minimum and maximum
     double sum = 0.0;
-    for (size_t i = 0; i < kCount; i++)
+    double minimum = data[0];
+    double maximum = data[0];
+    for (size_t i = 0; i < kCount; i++) {
         sum += data[i];
+        if (data[i] < minimum) minimum = data[i];
+        if (data[i] > maximum) maximum = data[i];
+    }
 
     double mean = sum / kCount;
 
@@ -61,9 +66,11 @@ static void Verify(void(*f)(T*, size_t), const char* fname) {
     printf(
         "mean     = % .23g\n"
         "SD       = % .23g\n"
-        "skewness = % .23g\n" 
+        "minimum  = % .23g\n"
+        "maximum  = % .23g\n"
+        "skewness = % .23g\n"
         "kurtosis = % .23g\n\n",
-        mean, sd, skewness, kurtosis);
+        mean, sd, minimum, maximum, skewness, kurtosis);
 }
 
 static void VerifyAll() {

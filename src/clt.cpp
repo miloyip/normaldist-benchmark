@@ -1,7 +1,7 @@
 #include "test.h"
 #include "lcg.h"
 
-// By central limiting theorem,
+// By central limit theorem (CLT),
 // U ~ [0, 1]
 // S = sum U_i for i = 1 to M
 // S ~ N(M / 2, M / 12)

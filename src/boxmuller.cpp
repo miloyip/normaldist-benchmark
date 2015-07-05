@@ -16,10 +16,10 @@ void boxmuller(T* data, size_t count) {
             u2 = r();
         } while (u1 <= std::numeric_limits<T>::min());
 
-		T r = std::sqrt(-2 * std::log(u1));
+		T radius = std::sqrt(-2 * std::log(u1));
 		T theta = twopi * u2;
-		data[i    ] = r * std::cos(theta);
-		data[i + 1] = r * std::sin(theta);
+		data[i    ] = radius * std::cos(theta);
+		data[i + 1] = radius * std::sin(theta);
 	}
 }
 

@@ -3,13 +3,14 @@
 #include <cassert>
 #include <limits>
 #include <algorithm>
+#include <cmath>
 
 template <class T>
 void boxmuller(T* data, size_t count) {
 	assert(count % 2 == 0);
 	static const T twopi = T(2.0 * 3.14159265358979323846);
 
-	LCG r;
+	LCG<T> r;
 	for (size_t i = 0; i < count; i += 2) {
         T u1, u2;
         u1 = r();

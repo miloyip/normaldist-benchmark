@@ -2,6 +2,7 @@
 #include "lcg.h"
 #include <cassert>
 #include <algorithm>
+#include <cmath>
 
 // http://home.online.no/~pjacklam/notes/invnorm/
 template <class T>
@@ -48,7 +49,7 @@ static T normsinv(T p) {
 
 template <class T>
 static void inverse(T* data, size_t count) {
-	LCG r;
+	LCG<T> r;
 	for (size_t i = 0; i < count; i++)
         data[i] = normsinv(r());
 }

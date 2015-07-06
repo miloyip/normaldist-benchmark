@@ -1,13 +1,13 @@
 #include "test.h"
 #include "lcg.h"
 #include <cassert>
+#include <cmath>
 
 template <class T>
 void marsagliapolar(T* data, size_t count) {
 	assert(count % 2 == 0);
-	static const T twopi = T(2.0 * 3.14159265358979323846);
 
-	LCG r;
+	LCG<T> r;
 	for (size_t i = 0; i < count; i += 2) {
 		T u, v, s;
 		do {

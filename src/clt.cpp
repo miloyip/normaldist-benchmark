@@ -1,5 +1,6 @@
 #include "test.h"
 #include "lcg.h"
+#include <cmath>
 
 // By central limit theorem (CLT),
 // U ~ [0, 1]
@@ -21,9 +22,9 @@ static inline T clt(RNG& r) {
 
 template <class T, int M>
 static void clt(T* data, size_t count) {
-	LCG r;
+	LCG<T> r;
 	for (size_t i = 0; i < count; i++)
-		data[i] = clt<T, LCG, M>(r);
+		data[i] = clt<T, LCG<T>, M>(r);
 }
 
 #define CLT_TEST(M)\

@@ -1,3 +1,8 @@
+// MILO {
+#include "test.h"
+#include "lcg.h"
+// MILO }
+
 /* gauss.c - gaussian random numbers, using the Ziggurat method
  *
  * Copyright (C) 2005  Jochen Voss.
@@ -29,8 +34,9 @@
 #include <math.h>
 #include <assert.h>
 
-#include <gsl/gsl_rng.h>
-
+// MILO {
+// #include <gsl/gsl_rng.h>
+// MILO }
 
 /* position of right-most step */
 #define PARAM_R 3.44428647676
@@ -144,7 +150,8 @@ static const double wtab[128] = {
   1.83813550477e-07, 1.92166040885e-07, 2.05295471952e-07, 2.22600839893e-07
 };
 
-
+// MILO {
+#if 0
 static unsigned long
 gsl_rng_uint32 (gsl_rng *r)
 /* the uniform distribution on 0..2^{32}-1 */
@@ -161,15 +168,30 @@ gsl_rng_uint32 (gsl_rng *r)
     return  (a<<16)|b;
   }
 }
+#endif
 
-double
-gsl_ran_gaussian_ziggurat (gsl_rng *r, double sigma)
+template <class RNGReal>
+static double gsl_rng_uniform(RNGReal& r) {
+  return r();
+}
+// MILO }
+
+// MILO {
+//double
+//gsl_ran_gaussian_ziggurat (gsl_rng *r, double sigma)
+template <class RNGReal, class RNGInt>
+double ziggurat(RNGReal& r, RNGInt& ri)
 {
+  double sigma = 1;
+// MILO }
   unsigned long  U, sign, i, j;
   double  x, y;
 
   while (1) {
-    U = gsl_rng_uint32 (r);
+// MILO {
+    //U = gsl_rng_uint32 (r);
+    U = ri();
+// MILO }
     i = U & 0x0000007F;		/* 7 bit to choose the step */
     sign = U & 0x00000080;	/* 1 bit for the sign */
     j = U>>8;			/* 24 bit for the x-value */
@@ -190,3 +212,23 @@ gsl_ran_gaussian_ziggurat (gsl_rng *r, double sigma)
   }
   return  sign ? sigma*x : -sigma*x;
 }
+
+// MILO {
+
+static void normaldistf_ziggurat(float* data, size_t count) {
+  LCG<float> r;
+  LCG<uint32_t> ri;
+  for (size_t i = 0; i < count; i++)
+    data[i] = ziggurat(r, ri);
+}
+
+static void normaldist_ziggurat(double* data, size_t count) {
+  LCG<double> r;
+  LCG<uint32_t> ri;
+  for (size_t i = 0; i < count; i++)
+    data[i] = ziggurat(r, ri);
+}
+
+REGISTER_TEST(ziggurat);
+
+// MILO }

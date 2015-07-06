@@ -6,6 +6,19 @@ template <class T>
 class LCG;
 
 template <>
+class LCG<uint32_t> {
+public:
+    LCG() : x(1) {}
+
+    uint32_t operator()() {
+        return x = x * 1664525 + 1013904223; // Numerical Recipes
+    }
+
+private:
+    uint32_t x;
+};
+
+template <>
 class LCG<float> {
 public:
     LCG() : x(1) {}

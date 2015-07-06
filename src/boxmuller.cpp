@@ -1,8 +1,6 @@
 #include "test.h"
 #include "lcg.h"
 #include <cassert>
-#include <limits>
-#include <algorithm>
 #include <cmath>
 
 template <class T>
@@ -13,9 +11,8 @@ void boxmuller(T* data, size_t count) {
 	LCG<T> r;
 	for (size_t i = 0; i < count; i += 2) {
         T u1, u2;
-        u1 = r();
+        u1 = 1.0f - r(); // [0, 1) -> (0, 1]
         u2 = r();
-        u1  = std::max(u1, std::numeric_limits<T>::min());
 
 		T radius = std::sqrt(-2 * std::log(u1));
 		T theta = twopi * u2;

@@ -10,10 +10,8 @@ void boxmuller(T* data, size_t count) {
 
 	LCG<T> r;
 	for (size_t i = 0; i < count; i += 2) {
-        T u1, u2;
-        u1 = 1.0f - r(); // [0, 1) -> (0, 1]
-        u2 = r();
-
+        T u1 = 1.0f - r(); // [0, 1) -> (0, 1]
+        T u2 = r();
 		T radius = std::sqrt(-2 * std::log(u1));
 		T theta = twopi * u2;
 		data[i    ] = radius * std::cos(theta);

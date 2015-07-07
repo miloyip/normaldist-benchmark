@@ -67,13 +67,12 @@ _PS_CONST_TYPE(lcg_b, uint32_t, 1013904223);
 _PS_CONST_TYPE(lcg_mask, uint32_t, 0x3F800000);
 
 template <>
-ALIGN16_BEG
 class LCG<__m128> {
 public:
     LCG() : x(_mm_setr_epi32(1, 2, 3, 4)) {}
 
     __m128 operator()() {
-        x = _mm_add_epi32(mullo_epi32(x, *(__m128*)_ps_lcg_a), *(__m128*)_ps_lcg_b);
+        x = _mm_add_epi32(mullo_epi32(x, *(__m128i*)_ps_lcg_a), *(__m128i*)_ps_lcg_b);
         __m128i u = _mm_or_si128(_mm_srli_epi32(x, 9), *(__m128i*)_ps_lcg_mask);
         __m128 f = _mm_sub_ps(_mm_castsi128_ps(u), *(__m128*)_ps_1);
         return f;
@@ -88,7 +87,6 @@ private:
     }
     __m128i x;
 };
-ALIGN16_END
 
 #endif // USE_SSE2
 
@@ -104,14 +102,13 @@ AVX2_INTOP_USING_SSE2(mullo_epi32); // Actually uses SSE4.1 _mm_mullo_epi32()
 AVX2_INTOP_USING_SSE2(or_si128);
 
 template <>
-ALIGN32_BEG
 class LCG<__m256> {
 public:
     LCG() : x(_mm256_setr_epi32(1, 2, 3, 4, 5, 6, 7, 8)) {}
 
     __m256 operator()() {
-        x = _mm256_add_epi32(_mm256_mullo_epi32(x, *(__m256*)_ps256_lcg_a), *(__m256*)_ps256_lcg_b);
-        __m256i u = _mm256_or_si128(_mm256_srli_epi32(x, 9), *(__m256i*)_ps256_lcg_mask);
+        x = _mm256_add_epi32(_mm256_mullo_epi32(x, *(__m256i*)_ps256_lcg_a), *(__m256i*)_ps256_lcg_b);
+        __m256i u = _mm256_or_si128_sse2(_mm256_srli_epi32(x, 9), *(__m256i*)_ps256_lcg_mask);
         __m256 f = _mm256_sub_ps(_mm256_castsi256_ps(u), *(__m256*)_ps256_1);
         return f;
     }
@@ -119,6 +116,5 @@ public:
 private:
     __m256i x;
 };
-ALIGN32_END
 
 #endif // USE_AVX

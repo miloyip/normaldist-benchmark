@@ -78,8 +78,10 @@ static void VerifyAll() {
     const TestList& tests = TestManager::Instance().GetTests();
     for (TestList::const_iterator itr = tests.begin(); itr != tests.end(); ++itr) {
         if (strcmp((*itr)->fname, "null") != 0) {   // skip null
-            Verify((*itr)->normaldistf, (*itr)->fname);
-            Verify((*itr)->normaldist, (*itr)->fname);
+            if ((*itr)->normaldistf)
+                Verify((*itr)->normaldistf, (*itr)->fname);
+            if ((*itr)->normaldist)
+                Verify((*itr)->normaldist, (*itr)->fname);
         }
     }
 }
@@ -127,11 +129,13 @@ static void BenchAll() {
 
     puts("normaldistf");
     for (TestList::const_iterator itr = tests.begin(); itr != tests.end(); ++itr)
-        Bench((*itr)->normaldistf, "normaldistf", (*itr)->fname, fp);
+        if ((*itr)->normaldistf)
+            Bench((*itr)->normaldistf, "normaldistf", (*itr)->fname, fp);
 
     puts("\nnormaldist");
     for (TestList::const_iterator itr = tests.begin(); itr != tests.end(); ++itr)
-        Bench((*itr)->normaldist, "normaldist", (*itr)->fname, fp);
+        if ((*itr)->normaldist)
+            Bench((*itr)->normaldist, "normaldist", (*itr)->fname, fp);
 
     fclose(fp);
 }

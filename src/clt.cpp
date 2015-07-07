@@ -13,8 +13,8 @@ template <class T, class RNG, int M>
 static inline T clt(RNG& r) {
 	static T inv = 1 / std::sqrt(T(M) / 12);
 
-	T sum = 0;
-	for (int i = 0; i < M; i++)
+	T sum = r();
+	for (int i = 1; i < M; i++)
 		sum += r();
 
 	return (sum - M / T(2)) * inv;

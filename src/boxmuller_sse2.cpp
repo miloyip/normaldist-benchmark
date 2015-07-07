@@ -20,8 +20,8 @@ static void normaldistf_boxmuller_sse2(float* data, size_t count) {
 		__m128 theta = _mm_mul_ps(twopi, u2);
         __m128 sintheta, costheta;
         sincos_ps(theta, &sintheta, &costheta);
-		_mm_storeu_ps(&data[i    ], _mm_mul_ps(radius, costheta));
-		_mm_storeu_ps(&data[i + 4], _mm_mul_ps(radius, sintheta));
+		_mm_store_ps(&data[i    ], _mm_mul_ps(radius, costheta));
+		_mm_store_ps(&data[i + 4], _mm_mul_ps(radius, sintheta));
 	}
 }
 

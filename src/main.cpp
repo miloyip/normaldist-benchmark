@@ -18,7 +18,8 @@ template <typename T>
 static void Verify(void(*f)(T*, size_t), const char* fname) {
     printf("Verifying %s ... ", fname);
 
-    T* data = new T[kCount];
+    void* p = malloc(kCount * sizeof(T) + 32);
+    T* data = reinterpret_cast<T*>(((uintptr_t)p + 32) & ~31);
     f(data, kCount);
 
     // Compute mean, minimum and maximum
@@ -57,7 +58,7 @@ static void Verify(void(*f)(T*, size_t), const char* fname) {
     }
     double kurtosis = (kurtosisSum / kCount) / ((sd * sd) * (sd * sd)) - 3.0;
 
-    delete [] data;
+    free(p);
 
     if (std::abs(mean) < 0.01 && std::abs(sd - 1.0) < 0.01 && std::abs(skewness) < 0.01 && std::abs(kurtosis) < 0.01)
         printf("OK\n");
@@ -91,7 +92,9 @@ static void Bench(void(*f)(T*, size_t), const char* type, const char* fname, FIL
     printf("Benchmarking     %-20s ... ", fname);
 
     double duration = std::numeric_limits<double>::max();
-    T* data = new T[kCount];
+    char* p = static_cast<char*>(malloc(kCount * sizeof(T) + 32));
+    T* data = reinterpret_cast<T*>(((uintptr_t)p + 32) & ~31);
+    f(data, kCount);
     for (unsigned trial = 0; trial < kTrial; trial++) {
         Timer timer;
         timer.Start();
@@ -101,7 +104,7 @@ static void Bench(void(*f)(T*, size_t), const char* type, const char* fname, FIL
         timer.Stop();
         duration = std::min(duration, timer.GetElapsedMilliseconds());
     }
-    delete [] data;
+    free(p);
 
     duration *= 1e6 / kCount; // convert to nano second per operation
     fprintf(fp, "%s,%s,0,%f\n", type, fname, duration);

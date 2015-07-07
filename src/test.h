@@ -1,6 +1,7 @@
 #pragma once
 
 #define USE_SSE2
+#define USE_AVX
 
 #include <vector>
 #include <string.h>

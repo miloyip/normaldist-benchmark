@@ -15,8 +15,8 @@ static const size_t kTrial = 10;
 static const size_t kCount = 1000000;
 
 template <typename T>
-static void Verify(void(*f)(T*, size_t), const char* fname) {
-    printf("Verifying %s ... ", fname);
+static void Verify(void(*f)(T*, size_t), const char* test, const char* fname) {
+    printf("Verifying %s %s ... ", test, fname);
 
     void* p = malloc(kCount * sizeof(T) + 32);
     T* data = reinterpret_cast<T*>(((uintptr_t)p + 32) & ~31);
@@ -66,12 +66,12 @@ static void Verify(void(*f)(T*, size_t), const char* fname) {
         printf("Fail\n");
 
     printf(
-        "mean     = % .23g\n"
-        "SD       = % .23g\n"
-        "minimum  = % .23g\n"
-        "maximum  = % .23g\n"
-        "skewness = % .23g\n"
-        "kurtosis = % .23g\n\n",
+        "mean     = % .6f\n"
+        "SD       = % .6f\n"
+        "minimum  = % .6f\n"
+        "maximum  = % .6f\n"
+        "skewness = % .6f\n"
+        "kurtosis = % .6f\n\n",
         mean, sd, minimum, maximum, skewness, kurtosis);
 }
 
@@ -80,9 +80,9 @@ static void VerifyAll() {
     for (TestList::const_iterator itr = tests.begin(); itr != tests.end(); ++itr) {
         if (strcmp((*itr)->fname, "null") != 0) {   // skip null
             if ((*itr)->normaldistf)
-                Verify((*itr)->normaldistf, (*itr)->fname);
+                Verify((*itr)->normaldistf, "normaldistf", (*itr)->fname);
             if ((*itr)->normaldist)
-                Verify((*itr)->normaldist, (*itr)->fname);
+                Verify((*itr)->normaldist, "normaldist", (*itr)->fname);
         }
     }
 }

@@ -107,7 +107,7 @@ static void Bench(void(*f)(T*, size_t), const char* type, const char* fname, FIL
     free(p);
 
     duration *= 1e6 / kCount; // convert to nano second per operation
-    fprintf(fp, "%s,%s,0,%f\n", type, fname, duration);
+    fprintf(fp, "%s,%s,%f\n", type, fname, duration);
 
     printf("%8.3fns\n", duration);
 }
@@ -126,7 +126,7 @@ static void BenchAll() {
     else
         fp = fopen(RESULT_FILENAME, "w");
 
-    fprintf(fp, "Type,Function,Digit,Time(ns)\n");
+    fprintf(fp, "Type,Function,Time(ns)\n");
 
     const TestList& tests = TestManager::Instance().GetTests();
 

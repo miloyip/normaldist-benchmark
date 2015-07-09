@@ -55,4 +55,8 @@ solution "benchmark"
 			"../src/**.cpp",
 		}
 
+		includedirs {
+			"../include"
+		}
+
 		setTargetObjDir("../bin")

@@ -45,7 +45,7 @@ solution "benchmark"
 		defines { "_CRT_SECURE_NO_WARNINGS" }
 		
 	configuration "gmake"
-		buildoptions "-mavx -Wall -Wextra"
+		buildoptions "-mavx -Wall -Wextra -std=c++11"
 
 	project "normaldist"
 		kind "ConsoleApp"

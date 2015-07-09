@@ -97,7 +97,7 @@ clt4_avx        | 2.730       | 7.83x
 boxmuller_avx   | 2.253       | 9.49x
 null            | 1.253       | 17.07x
 
-![Corei5-3330S@2.70GHz_mac64_clang6.1_normaldistf_time](Corei5-3330S@2.70GHz_mac64_clang6.1_normaldistf_time.png)
+![Corei5-3330S@2.70GHz_mac64_clang6.1_normaldistf_time](result/Corei5-3330S@2.70GHz_mac64_clang6.1_normaldistf_time.png)
 
 normaldist (double precision):
 
@@ -113,7 +113,7 @@ clt4           | 7.402      | 4.36x
 ziggurat       | 7.086      | 4.55x
 null           | 1.456      | 22.15x
 
-![Corei5-3330S@2.70GHz_mac64_clang6.1_normaldist_time](Corei5-3330S@2.70GHz_mac64_clang6.1_normaldist_time.png)
+![Corei5-3330S@2.70GHz_mac64_clang6.1_normaldist_time](result/Corei5-3330S@2.70GHz_mac64_clang6.1_normaldist_time.png)
 
 * [Corei5-3330S@2.70GHz_mac64_clang6.1](http://rawgit.com/miloyip/normaldist-benchmark/master/result/Corei5-3330S@2.70GHz_mac64_clang6.1.html)
 

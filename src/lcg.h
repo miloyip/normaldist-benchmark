@@ -42,14 +42,14 @@ class LCG<double> {
 public:
     LCG() : x(1) {}
 
-    float operator()() {
+    double operator()() {
         x = x * 2862933555777941757 + 3037000493; // http://nuclear.llnl.gov/CNP/rng/rngman/node4.html
         union {
             uint64_t u;
             double f;
         }u;
         u.u = (x >> 12) | (uint64_t(0x3FF00000) << 32);
-        return u.f - 1.0f;
+        return u.f - 1;
     }
 
 private:

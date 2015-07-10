@@ -223,7 +223,7 @@ static const float wtabf[128] = {
   1.44635331499e-07f, 1.4657889173e-07f, 1.48632138436e-07f, 1.50811780719e-07f,
   1.53138707402e-07f, 1.55639532047e-07f, 1.58348931426e-07f, 1.61313325908e-07f,
   1.64596952856e-07f, 1.68292495203e-07f, 1.72541128694e-07f, 1.77574279496e-07f,
-  1.83813550477e-07f, 1.92166040885e-07f, 2.05295471952e-07f, 2.22600839893e-07
+  1.83813550477e-07f, 1.92166040885e-07f, 2.05295471952e-07f, 2.22600839893e-07f
 };
 // MILO }
 
@@ -264,7 +264,7 @@ double ziggurat(RNGReal& r, RNGInt& ri)
   unsigned long  U, sign, i, j;
   double  x, y;
 
-  while (1) {
+  for(;;) {
 // MILO {
     //U = gsl_rng_uint32 (r);
     U = ri();
@@ -297,7 +297,7 @@ float zigguratf(RNGReal& r, RNGInt& ri)
   uint32_t U, sign, i, j;
   float x, y;
 
-  while (1) {
+  for(;;) {
     U = ri();
     i = U & 0x0000007F;   /* 7 bit to choose the step */
     sign = U & 0x00000080;  /* 1 bit for the sign */

@@ -62,7 +62,7 @@ Note that the `null` implementation generates unform random numbers. It measures
 
 CLT implementations were actually unable to pass the correctness tests, as their kurtosis are higher than threshold.
 
-All implementations except `cpp11random` uses simplest [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator) as unifromally distributed pseudo random number generator (PRNG). 
+All implementations except `cpp11random` uses simplest [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator) as uniform distributed pseudo random number generator (PRNG). 
 
 Suffixes       | Description
 ---------------|-----------

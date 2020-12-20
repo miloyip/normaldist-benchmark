@@ -25,7 +25,7 @@ void ratio(T* data, size_t count) {
 			x = u - s;
 			y = std::fabs(v) - t;
 			Q = x*x + y*(a*y - b*x);
-		} while (Q >= r1 && (Q > r2 || v*v > -4*u*u * std::log(u));
+		} while (Q >= r1 && (Q > r2 || v*v > -4*u*u * std::log(u)));
 		data[i] = v / u;
 	}
 }
